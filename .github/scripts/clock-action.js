@@ -172,17 +172,48 @@ async function run() {
       if (otp) {
         console.log('Entering OTP:', otp);
 
-        // Find and fill the OTP field — use Playwright locator for reliability
-        const otpLocator = page.locator('input[placeholder*="OTP"], input[placeholder*="Enter OTP"], #otp_id, #otp_code, input[name="otp"]').first();
-        await otpLocator.waitFor({ state: 'visible', timeout: 10000 }).catch(() => {});
+        // Find and fill the OTP field using evaluate for maximum compatibility
+        const filled = await page.evaluate((otpCode) => {
+          // Try all possible input selectors
+          const selectors = [
+            'input[placeholder*="OTP"]',
+            'input[placeholder*="Enter"]',
+            '#otp_id',
+            '#otp_code',
+            'input[name="otp"]',
+            'input[type="text"]',
+            'input[type="number"]',
+            'input[type="tel"]',
+          ];
+          for (const sel of selectors) {
+            const el = document.querySelector(sel);
+            if (el && el.offsetParent !== null) {
+              // Use native setter to trigger React/framework change events
+              const nativeSet = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set;
+              nativeSet.call(el, otpCode);
+              el.dispatchEvent(new Event('input', { bubbles: true }));
+              el.dispatchEvent(new Event('change', { bubbles: true }));
+              return 'Filled via: ' + sel;
+            }
+          }
+          return null;
+        }, otp);
 
-        if (await otpLocator.count() > 0) {
-          await otpLocator.fill(otp);
-          console.log('OTP entered, clicking verify...');
+        if (filled) {
+          console.log('OTP entered:', filled);
+          console.log('Clicking Verify...');
 
           // Click verify button
-          const verifyLocator = page.locator('button:has-text("Verify"), #nextbtn, input[type="submit"]').first();
-          await verifyLocator.click();
+          await page.evaluate(() => {
+            const btns = document.querySelectorAll('button, input[type="submit"]');
+            for (const b of btns) {
+              const t = b.textContent.trim().toLowerCase();
+              if (t.includes('verify') && b.offsetParent !== null) {
+                b.click();
+                return;
+              }
+            }
+          });
 
           await page.waitForTimeout(8000);
           postLoginUrl = page.url();
