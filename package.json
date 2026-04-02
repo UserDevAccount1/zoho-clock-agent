@@ -17,6 +17,8 @@
   "dependencies": {
     "better-sqlite3": "^12.8.0",
     "express": "^5.2.1",
+    "imap-simple": "^5.1.0",
+    "mailparser": "^3.9.6",
     "playwright": "^1.58.2"
   }
 }

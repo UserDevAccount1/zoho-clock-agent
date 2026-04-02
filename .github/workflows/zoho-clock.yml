@@ -53,6 +53,7 @@ jobs:
         env:
           ZOHO_EMAIL: ${{ secrets.ZOHO_EMAIL }}
           ZOHO_PASSWORD: ${{ secrets.ZOHO_PASSWORD }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
         run: node .github/scripts/clock-action.js ${{ steps.action.outputs.action }}
 
       - name: Upload screenshot
