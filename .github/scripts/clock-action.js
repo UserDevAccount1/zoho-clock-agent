@@ -43,52 +43,67 @@ async function fetchOTPFromGmail(maxRetries = 5) {
       const connection = await imapSimple.connect(imapConfig);
       await connection.openBox('INBOX');
 
-      // Search for recent Zoho OTP emails (last 5 minutes)
+      // Search for recent Zoho OTP emails — use UNSEEN + today's date
+      // IMAP SINCE only supports date (not time), so we also filter by UNSEEN
+      const today = new Date();
       const searchCriteria = [
-        ['FROM', 'noreply@zoho.com'],
-        ['SINCE', new Date(Date.now() - 5 * 60 * 1000)],
+        'UNSEEN',
+        ['SINCE', today],
       ];
-      const fetchOptions = { bodies: [''], markSeen: true };
+      const fetchOptions = { bodies: [''], markSeen: false };
 
       const messages = await connection.search(searchCriteria, fetchOptions);
+      console.log(`Found ${messages.length} unread emails today`);
+
+      // Filter for Zoho-related OTP emails
+      let otpFound = null;
+      for (let i = messages.length - 1; i >= 0; i--) {
+        const msg = messages[i];
+        const rawEmail = msg.parts.find(p => p.which === '').body;
+        const parsed = await simpleParser(rawEmail);
+        const from = (parsed.from?.text || '').toLowerCase();
+        const subject = (parsed.subject || '').toLowerCase();
+        const body = (parsed.text || parsed.html || '').toString();
+
+        console.log(`Email ${i}: from="${from}" subject="${subject.substring(0, 60)}"`);
+
+        // Check if this is a Zoho OTP email
+        const isZoho = from.includes('zoho') || from.includes('zohoaccount') ||
+                       subject.includes('otp') || subject.includes('verification') ||
+                       subject.includes('sign-in') || subject.includes('one-time') ||
+                       body.includes('one-time password') || body.includes('OTP');
+
+        if (!isZoho) continue;
+
+        // Extract OTP — typically 6 digits
+        const otpMatch = body.match(/\b(\d{6})\b/);
+        if (otpMatch) {
+          otpFound = otpMatch[1];
+          console.log('Found OTP:', otpFound, 'from:', from);
+          // Mark as seen
+          connection.addFlags(msg.attributes.uid, ['\\Seen']);
+          break;
+        }
+
+        // Try alternate patterns
+        const altMatch = body.match(/(?:OTP|code|verification|password)[:\s]*(\d{4,8})/i);
+        if (altMatch) {
+          otpFound = altMatch[1];
+          console.log('Found OTP (alt):', otpFound);
+          connection.addFlags(msg.attributes.uid, ['\\Seen']);
+          break;
+        }
+
+        console.log('Zoho email found but no OTP code in body. Preview:', body.substring(0, 200));
+      }
+
+      await connection.end();
+
+      if (otpFound) return otpFound;
 
       if (messages.length === 0) {
-        console.log('No OTP email found yet...');
-        await connection.end();
-        if (attempt < maxRetries) {
-          await new Promise(r => setTimeout(r, 10000)); // Wait 10s between retries
-          continue;
-        }
-        return null;
+        console.log('No unread emails found yet...');
       }
-
-      // Get the most recent message
-      const latest = messages[messages.length - 1];
-      const rawEmail = latest.parts.find(p => p.which === '').body;
-      const parsed = await simpleParser(rawEmail);
-
-      const body = (parsed.text || parsed.html || '').toString();
-      console.log('Email subject:', parsed.subject);
-
-      // Extract OTP — Zoho OTPs are typically 6 digits
-      const otpMatch = body.match(/\b(\d{6})\b/);
-      if (otpMatch) {
-        console.log('Found OTP:', otpMatch[1]);
-        await connection.end();
-        return otpMatch[1];
-      }
-
-      // Try alternate patterns
-      const altMatch = body.match(/(?:OTP|code|verification)[:\s]*(\d{4,8})/i);
-      if (altMatch) {
-        console.log('Found OTP (alt):', altMatch[1]);
-        await connection.end();
-        return altMatch[1];
-      }
-
-      console.log('Email found but no OTP pattern matched');
-      console.log('Body preview:', body.substring(0, 300));
-      await connection.end();
 
       if (attempt < maxRetries) {
         await new Promise(r => setTimeout(r, 10000));
