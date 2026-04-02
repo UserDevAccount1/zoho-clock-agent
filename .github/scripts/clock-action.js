@@ -172,39 +172,17 @@ async function run() {
       if (otp) {
         console.log('Entering OTP:', otp);
 
-        // Find and fill the OTP field
-        const otpField = await page.$('#otp_id') ||
-                         await page.$('#otp_code') ||
-                         await page.$('input[name="otp"]') ||
-                         await page.$('input[placeholder*="OTP"]') ||
-                         await page.$('input[placeholder*="Enter"]') ||
-                         await page.$('input[type="text"]') ||
-                         await page.$('input[type="number"]');
+        // Find and fill the OTP field — use Playwright locator for reliability
+        const otpLocator = page.locator('input[placeholder*="OTP"], input[placeholder*="Enter OTP"], #otp_id, #otp_code, input[name="otp"]').first();
+        await otpLocator.waitFor({ state: 'visible', timeout: 10000 }).catch(() => {});
 
-        if (otpField) {
-          await otpField.fill(otp);
+        if (await otpLocator.count() > 0) {
+          await otpLocator.fill(otp);
           console.log('OTP entered, clicking verify...');
 
           // Click verify button
-          const verifyBtn = await page.$('button#nextbtn') ||
-                            await page.$('button:has-text("Verify")') ||
-                            await page.$('#nextbtn') ||
-                            await page.$('input[type="submit"]');
-          if (verifyBtn) {
-            await verifyBtn.click();
-          } else {
-            // Try generic approach
-            await page.evaluate(() => {
-              const btns = document.querySelectorAll('button, input[type="submit"]');
-              for (const b of btns) {
-                const t = b.textContent.trim().toLowerCase();
-                if (t.includes('verify') || t.includes('submit') || t.includes('next')) {
-                  b.click();
-                  return;
-                }
-              }
-            });
-          }
+          const verifyLocator = page.locator('button:has-text("Verify"), #nextbtn, input[type="submit"]').first();
+          await verifyLocator.click();
 
           await page.waitForTimeout(8000);
           postLoginUrl = page.url();
