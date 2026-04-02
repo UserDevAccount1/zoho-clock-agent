@@ -1,0 +1,497 @@
+[
+  {
+    "id": "1",
+    "name": "Google Workspace",
+    "url": "workspace.google.com",
+    "category": "Operational",
+    "status": "Unchecked",
+    "username": "gabriel@defeatdiabetes.com.au",
+    "lastVerified": null
+  },
+  {
+    "id": "2",
+    "name": "Slack",
+    "url": "slack.com",
+    "category": "Operational",
+    "status": "Unchecked",
+    "username": "gabriel@defeatdiabetes.com.au",
+    "lastVerified": null
+  },
+  {
+    "id": "3",
+    "name": "Canva",
+    "url": "canva.com",
+    "category": "Operational",
+    "status": "Unchecked",
+    "username": "gabriel@defeatdiabetes.com.au",
+    "lastVerified": null
+  },
+  {
+    "id": "4",
+    "name": "LastPass",
+    "url": "lastpass.com",
+    "category": "Operational",
+    "status": "Unchecked",
+    "username": "gabriel@defeatdiabetes.com.au",
+    "lastVerified": null
+  },
+  {
+    "id": "5",
+    "name": "Xero",
+    "url": "xero.com",
+    "category": "Operational",
+    "status": "Unchecked",
+    "username": "gabriel@defeatdiabetes.com.au",
+    "lastVerified": null
+  },
+  {
+    "id": "6",
+    "name": "Trello",
+    "url": "trello.com",
+    "category": "Operational",
+    "status": "Unchecked",
+    "username": "gabriel@defeatdiabetes.com.au",
+    "lastVerified": null
+  },
+  {
+    "id": "7",
+    "name": "Confluence",
+    "url": "confluence.atlassian.com",
+    "category": "Operational",
+    "status": "Unchecked",
+    "username": "gabriel@defeatdiabetes.com.au",
+    "lastVerified": null
+  },
+  {
+    "id": "8",
+    "name": "ShipStation",
+    "url": "shipstation.com",
+    "category": "Operational",
+    "status": "Unchecked",
+    "username": "gabriel@defeatdiabetes.com.au",
+    "lastVerified": null
+  },
+  {
+    "id": "9",
+    "name": "Contentful",
+    "url": "app.contentful.com",
+    "category": "Content",
+    "status": "Unchecked",
+    "username": "gabriel@defeatdiabetes.com.au",
+    "lastVerified": null
+  },
+  {
+    "id": "10",
+    "name": "iStockphoto",
+    "url": "istockphoto.com",
+    "category": "Content",
+    "status": "Unchecked",
+    "username": "gabriel@defeatdiabetes.com.au",
+    "lastVerified": null
+  },
+  {
+    "id": "11",
+    "name": "WordPress - defeatdiabetes.com.au",
+    "url": "defeatdiabetes.com.au/wp-admin",
+    "category": "Content",
+    "status": "Unchecked",
+    "username": "gabriel@defeatdiabetes.com.au",
+    "lastVerified": null
+  },
+  {
+    "id": "12",
+    "name": "WordPress - Staging",
+    "url": "staging36.defeatdiabetes.com.au/wp-admin",
+    "category": "Content",
+    "status": "Unchecked",
+    "username": "gabriel@defeatdiabetes.com.au",
+    "lastVerified": null
+  },
+  {
+    "id": "13",
+    "name": "WordPress - thediabetesplan.com.au",
+    "url": "thediabetesplan.com.au/wp-admin",
+    "category": "Content",
+    "status": "Unchecked",
+    "username": "gabriel@defeatdiabetes.com.au",
+    "lastVerified": null
+  },
+  {
+    "id": "14",
+    "name": "WordPress - riskcalculator.online",
+    "url": "riskcalculator.online/wp-admin",
+    "category": "Content",
+    "status": "Unchecked",
+    "username": "gabriel@defeatdiabetes.com.au",
+    "lastVerified": null
+  },
+  {
+    "id": "15",
+    "name": "WordPress - partners.defeatdiabetes.com.au",
+    "url": "partners.defeatdiabetes.com.au/wp-admin",
+    "category": "Content",
+    "status": "Unchecked",
+    "username": "gabriel@defeatdiabetes.com.au",
+    "lastVerified": null
+  },
+  {
+    "id": "16",
+    "name": "Apple Store Connect",
+    "url": "appstoreconnect.apple.com",
+    "category": "Marketing",
+    "status": "Unchecked",
+    "username": "gabriel@defeatdiabetes.com.au",
+    "lastVerified": null
+  },
+  {
+    "id": "17",
+    "name": "Google Play Console",
+    "url": "play.google.com/console",
+    "category": "Marketing",
+    "status": "Unchecked",
+    "username": "gabriel@defeatdiabetes.com.au",
+    "lastVerified": null
+  },
+  {
+    "id": "18",
+    "name": "Meta Business Manager",
+    "url": "business.facebook.com",
+    "category": "Marketing",
+    "status": "Unchecked",
+    "username": "gabriel@defeatdiabetes.com.au",
+    "lastVerified": null
+  },
+  {
+    "id": "19",
+    "name": "Google Adwords",
+    "url": "ads.google.com",
+    "category": "Marketing",
+    "status": "Unchecked",
+    "username": "gabriel@defeatdiabetes.com.au",
+    "lastVerified": null
+  },
+  {
+    "id": "20",
+    "name": "Streamyard",
+    "url": "streamyard.com",
+    "category": "Marketing",
+    "status": "Unchecked",
+    "username": "gabriel@defeatdiabetes.com.au",
+    "lastVerified": null
+  },
+  {
+    "id": "21",
+    "name": "Klaviyo",
+    "url": "www.klaviyo.com",
+    "category": "Marketing",
+    "status": "Unchecked",
+    "username": "gabriel@defeatdiabetes.com.au",
+    "lastVerified": null
+  },
+  {
+    "id": "22",
+    "name": "Zendesk",
+    "url": "zendesk.com",
+    "category": "Marketing",
+    "status": "Unchecked",
+    "username": "gabriel@defeatdiabetes.com.au",
+    "lastVerified": null
+  },
+  {
+    "id": "23",
+    "name": "Typeform",
+    "url": "typeform.com",
+    "category": "Marketing",
+    "status": "Unchecked",
+    "username": "gabriel@defeatdiabetes.com.au",
+    "lastVerified": null
+  },
+  {
+    "id": "24",
+    "name": "Google Merchant Centre",
+    "url": "merchants.google.com",
+    "category": "Marketing",
+    "status": "Unchecked",
+    "username": "gabriel@defeatdiabetes.com.au",
+    "lastVerified": null
+  },
+  {
+    "id": "25",
+    "name": "Post Affiliate Pro",
+    "url": "postaffiliatepro.com",
+    "category": "Marketing",
+    "status": "Unchecked",
+    "username": "shared login",
+    "lastVerified": null
+  },
+  {
+    "id": "26",
+    "name": "Google Ads",
+    "url": "ads.google.com",
+    "category": "Marketing",
+    "status": "Unchecked",
+    "username": "gabriel@defeatdiabetes.com.au",
+    "lastVerified": null
+  },
+  {
+    "id": "27",
+    "name": "Google Search Console",
+    "url": "search.google.com/search-console",
+    "category": "Marketing",
+    "status": "Unchecked",
+    "username": "gabriel@defeatdiabetes.com.au",
+    "lastVerified": null
+  },
+  {
+    "id": "28",
+    "name": "Diib",
+    "url": "diib.com",
+    "category": "Marketing",
+    "status": "Unchecked",
+    "username": "gabriel@defeatdiabetes.com.au",
+    "lastVerified": null
+  },
+  {
+    "id": "29",
+    "name": "SmarterQueue",
+    "url": "smarterqueue.com",
+    "category": "Social",
+    "status": "Unchecked",
+    "username": "gabriel@defeatdiabetes.com.au",
+    "lastVerified": null
+  },
+  {
+    "id": "30",
+    "name": "Meta (Facebook/Instagram)",
+    "url": "facebook.com",
+    "category": "Social",
+    "status": "Unchecked",
+    "username": "gabriel@defeatdiabetes.com.au",
+    "lastVerified": null
+  },
+  {
+    "id": "31",
+    "name": "LinkedIn",
+    "url": "linkedin.com",
+    "category": "Social",
+    "status": "Unchecked",
+    "username": "gabriel@defeatdiabetes.com.au",
+    "lastVerified": null
+  },
+  {
+    "id": "32",
+    "name": "Twitter / X",
+    "url": "x.com",
+    "category": "Social",
+    "status": "Unchecked",
+    "username": "gabriel@defeatdiabetes.com.au",
+    "lastVerified": null
+  },
+  {
+    "id": "33",
+    "name": "YouTube",
+    "url": "youtube.com",
+    "category": "Social",
+    "status": "Unchecked",
+    "username": "gabriel@defeatdiabetes.com.au",
+    "lastVerified": null
+  },
+  {
+    "id": "34",
+    "name": "AppsFlyer",
+    "url": "appsflyer.com",
+    "category": "Analytics",
+    "status": "Unchecked",
+    "username": "gabriel@defeatdiabetes.com.au",
+    "lastVerified": null
+  },
+  {
+    "id": "35",
+    "name": "ChartMogul",
+    "url": "chartmogul.com",
+    "category": "Analytics",
+    "status": "Unchecked",
+    "username": "gabriel@defeatdiabetes.com.au",
+    "lastVerified": null
+  },
+  {
+    "id": "36",
+    "name": "Google Analytics",
+    "url": "analytics.google.com",
+    "category": "Analytics",
+    "status": "Unchecked",
+    "username": "gabriel@defeatdiabetes.com.au",
+    "lastVerified": null
+  },
+  {
+    "id": "37",
+    "name": "Stripe",
+    "url": "dashboard.stripe.com",
+    "category": "Analytics",
+    "status": "Unchecked",
+    "username": "gabriel@defeatdiabetes.com.au",
+    "lastVerified": null
+  },
+  {
+    "id": "38",
+    "name": "Looker Studio",
+    "url": "lookerstudio.google.com",
+    "category": "Analytics",
+    "status": "Unchecked",
+    "username": "gabriel@defeatdiabetes.com.au",
+    "lastVerified": null
+  },
+  {
+    "id": "39",
+    "name": "Jira",
+    "url": "jira.atlassian.com",
+    "category": "Tech",
+    "status": "Unchecked",
+    "username": "gabriel@defeatdiabetes.com.au",
+    "lastVerified": null
+  },
+  {
+    "id": "40",
+    "name": "Bitbucket",
+    "url": "bitbucket.org",
+    "category": "Tech",
+    "status": "Unchecked",
+    "username": "gabriel@defeatdiabetes.com.au",
+    "lastVerified": null
+  },
+  {
+    "id": "41",
+    "name": "SiteGround",
+    "url": "my.siteground.com",
+    "category": "Tech",
+    "status": "Unchecked",
+    "username": "gabriel@defeatdiabetes.com.au",
+    "lastVerified": null
+  },
+  {
+    "id": "42",
+    "name": "Admin App",
+    "url": "admin.defeatdiabetes.com.au",
+    "category": "Tech",
+    "status": "Unchecked",
+    "username": "gabriel@defeatdiabetes.com.au",
+    "lastVerified": null
+  },
+  {
+    "id": "43",
+    "name": "App Centre",
+    "url": "appcenter.ms",
+    "category": "Tech",
+    "status": "Unchecked",
+    "username": "gabriel@defeatdiabetes.com.au",
+    "lastVerified": null
+  },
+  {
+    "id": "44",
+    "name": "Google Cloud",
+    "url": "console.cloud.google.com",
+    "category": "Tech",
+    "status": "Unchecked",
+    "username": "gabriel@defeatdiabetes.com.au",
+    "lastVerified": null
+  },
+  {
+    "id": "45",
+    "name": "Firebase",
+    "url": "console.firebase.google.com",
+    "category": "Tech",
+    "status": "Unchecked",
+    "username": "gabriel@defeatdiabetes.com.au",
+    "lastVerified": null
+  },
+  {
+    "id": "46",
+    "name": "Segment",
+    "url": "segment.com",
+    "category": "Tech",
+    "status": "Unchecked",
+    "username": "gabriel@defeatdiabetes.com.au",
+    "lastVerified": null
+  },
+  {
+    "id": "47",
+    "name": "AWS",
+    "url": "aws.amazon.com",
+    "category": "Tech",
+    "status": "Unchecked",
+    "username": "gabriel@defeatdiabetes.com.au",
+    "lastVerified": null
+  },
+  {
+    "id": "48",
+    "name": "Netlify",
+    "url": "netlify.com",
+    "category": "Tech",
+    "status": "Unchecked",
+    "username": "gabriel@defeatdiabetes.com.au",
+    "lastVerified": null
+  },
+  {
+    "id": "49",
+    "name": "Zapier",
+    "url": "zapier.com",
+    "category": "Tech",
+    "status": "Unchecked",
+    "username": "shared login",
+    "lastVerified": null
+  },
+  {
+    "id": "50",
+    "name": "n8n",
+    "url": "n8n.io",
+    "category": "Tech",
+    "status": "Unchecked",
+    "username": "gabriel@defeatdiabetes.com.au",
+    "lastVerified": null
+  },
+  {
+    "id": "51",
+    "name": "Google Tag Manager",
+    "url": "tagmanager.google.com",
+    "category": "Tech",
+    "status": "Unchecked",
+    "username": "gabriel@defeatdiabetes.com.au",
+    "lastVerified": null
+  },
+  {
+    "id": "52",
+    "name": "ThriveCart",
+    "url": "thrivecart.com",
+    "category": "Tech",
+    "status": "Unchecked",
+    "username": "gabriel@defeatdiabetes.com.au",
+    "lastVerified": null
+  },
+  {
+    "id": "53",
+    "name": "BigQuery",
+    "url": "console.cloud.google.com/bigquery",
+    "category": "Tech",
+    "status": "Unchecked",
+    "username": "gabriel@defeatdiabetes.com.au",
+    "lastVerified": null
+  },
+  {
+    "id": "54",
+    "name": "Intervengine",
+    "url": "defeat-diabetes-staging.web.app",
+    "category": "Tech",
+    "status": "Unchecked",
+    "username": "gabriel@defeatdiabetes.com.au",
+    "lastVerified": null
+  },
+  {
+    "id": "55",
+    "name": "Zoho People",
+    "url": "people.zoho.com/outsourcey",
+    "category": "Operational",
+    "status": "Unchecked",
+    "username": "navlink26@gmail.com",
+    "lastVerified": null
+  }
+]

@@ -1,0 +1,16 @@
+services:
+  app:
+    build: .
+    ports:
+      - "3847:3847"
+    volumes:
+      - db-data:/app/server/data
+      - screenshots:/app/screenshots
+    environment:
+      - PORT=3847
+      - API_KEY=outsourcey-clock-2026
+    restart: unless-stopped
+
+volumes:
+  db-data:
+  screenshots:

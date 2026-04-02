@@ -1,0 +1,17 @@
+node_modules
+frontend/node_modules
+frontend/dist
+server/data/accounts.db
+server/data/accounts.db-wal
+server/data/accounts.db-shm
+server/data/zoho-cookies.json
+server/data/.env
+screenshots/*.png
+.git
+*.exe
+debug-*.js
+do-clockout.js
+fix-*.js
+test-*.js
+local-clock.js
+zoho-clock.js
