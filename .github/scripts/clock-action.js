@@ -75,8 +75,8 @@ async function fetchOTPFromGmail(maxRetries = 5) {
 
         if (!isZoho) continue;
 
-        // Extract OTP — typically 6 digits
-        const otpMatch = body.match(/\b(\d{6})\b/);
+        // Extract OTP — Zoho uses 6-8 digit codes
+        const otpMatch = body.match(/\b(\d{6,8})\b/);
         if (otpMatch) {
           otpFound = otpMatch[1];
           console.log('Found OTP:', otpFound, 'from:', from);
