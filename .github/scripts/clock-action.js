@@ -52,6 +52,27 @@ async function run() {
     const postLoginUrl = page.url();
     console.log('Post-login URL:', postLoginUrl);
 
+    // Take screenshot after login for debugging
+    await page.screenshot({ path: path.join(screenshotsDir, `${ACTION}-00-post-login.png`), fullPage: true });
+
+    // Check if login failed (still on signin page without interstitial redirect)
+    if (postLoginUrl.includes('/signin') && !postLoginUrl.includes('announcement') && !postLoginUrl.includes('tfa') && !postLoginUrl.includes('sessions')) {
+      // Might be OTP, captcha, or IP block
+      const bodyText = await page.evaluate(() => document.body?.innerText?.substring(0, 1000) || '').catch(() => '');
+      console.log('Page content:', bodyText.substring(0, 500));
+
+      // Check for specific error messages
+      if (bodyText.includes('OTP') || bodyText.includes('verification')) {
+        console.error('ERROR: Zoho requires OTP verification from this IP');
+      } else if (bodyText.includes('blocked') || bodyText.includes('unusual')) {
+        console.error('ERROR: Zoho blocked login from GitHub Actions IP');
+      } else if (bodyText.includes('incorrect') || bodyText.includes('Invalid')) {
+        console.error('ERROR: Invalid credentials');
+      } else {
+        console.log('Login may have failed - still on signin page');
+      }
+    }
+
     // Handle interstitial pages (MFA banner, sessions reminder, etc.)
     if (!postLoginUrl.startsWith('https://people.zoho.com')) {
       console.log('Bypassing interstitial, navigating to Zoho People...');
