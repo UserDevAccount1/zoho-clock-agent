@@ -43,11 +43,11 @@ async function fetchOTPFromGmail(maxRetries = 5) {
       const connection = await imapSimple.connect(imapConfig);
       await connection.openBox('INBOX');
 
-      // Search for recent Zoho OTP emails — use UNSEEN + today's date
-      // IMAP SINCE only supports date (not time), so we also filter by UNSEEN
+      // Search for unread Zoho OTP emails from noreply@zohoaccounts.com
       const today = new Date();
       const searchCriteria = [
         'UNSEEN',
+        ['FROM', 'noreply@zohoaccounts.com'],
         ['SINCE', today],
       ];
       const fetchOptions = { bodies: [''], markSeen: false };
