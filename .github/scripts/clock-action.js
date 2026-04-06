@@ -158,7 +158,28 @@ async function run() {
     console.log('Post-login URL:', postLoginUrl);
     await page.screenshot({ path: path.join(screenshotsDir, `${ACTION}-00-post-login.png`), fullPage: true });
 
-    // Step 2: Handle OTP verification
+    // Step 2a: Handle "Maximum concurrent sessions" page
+    if (postLoginUrl.includes('block-sessions') || postLoginUrl.includes('preannouncement')) {
+      console.log('Session limit page detected, terminating all sessions...');
+      const terminated = await page.evaluate(() => {
+        const btns = document.querySelectorAll('button, a, input[type="button"]');
+        for (const b of btns) {
+          const t = b.textContent.trim().toLowerCase();
+          if (t.includes('terminate') && b.offsetParent !== null) {
+            b.click();
+            return 'Clicked: ' + b.textContent.trim();
+          }
+        }
+        return null;
+      });
+      console.log('Terminate result:', terminated || 'No button found');
+      await page.waitForTimeout(8000);
+      postLoginUrl = page.url();
+      console.log('After terminate URL:', postLoginUrl);
+      await page.screenshot({ path: path.join(screenshotsDir, `${ACTION}-00b-after-terminate.png`), fullPage: true });
+    }
+
+    // Step 2b: Handle OTP verification
     const pageText = await page.evaluate(() => document.body?.innerText?.substring(0, 1000) || '').catch(() => '');
 
     if (pageText.includes('OTP') || pageText.includes('Verify via email') || pageText.includes('one-time password')) {
