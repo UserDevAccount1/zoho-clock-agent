@@ -22,7 +22,7 @@ on:
 jobs:
   clock:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 10
 
     steps:
       - uses: actions/checkout@v4
@@ -48,7 +48,21 @@ jobs:
             echo "action=clockout" >> $GITHUB_OUTPUT
           fi
 
-      - name: Run Zoho ${{ steps.action.outputs.action }}
+      - name: Run Zoho ${{ steps.action.outputs.action }} (attempt 1)
+        id: attempt1
+        continue-on-error: true
+        env:
+          ZOHO_EMAIL: ${{ secrets.ZOHO_EMAIL }}
+          ZOHO_PASSWORD: ${{ secrets.ZOHO_PASSWORD }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+        run: node .github/scripts/clock-action.js ${{ steps.action.outputs.action }}
+
+      - name: Wait before retry
+        if: steps.attempt1.outcome == 'failure'
+        run: echo "Attempt 1 failed, waiting 30s before retry..." && sleep 30
+
+      - name: Run Zoho ${{ steps.action.outputs.action }} (retry)
+        if: steps.attempt1.outcome == 'failure'
         env:
           ZOHO_EMAIL: ${{ secrets.ZOHO_EMAIL }}
           ZOHO_PASSWORD: ${{ secrets.ZOHO_PASSWORD }}
