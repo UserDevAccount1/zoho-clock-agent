@@ -2,12 +2,12 @@ name: Zoho Clock In/Out
 
 on:
   schedule:
-    # Clock In: ~8:00 AM Manila (set 30min early to compensate for GitHub cron delay)
-    # 23:30 UTC Sun-Thu = 7:30 AM Manila Mon-Fri + ~30min delay = ~8:00 AM
+    # Clock In: ~8:00 AM Manila (7:30 AM + GitHub delay)
     - cron: '30 23 * * 0-4'
-    # Clock Out: ~5:00 PM Manila (set 30min early to compensate for GitHub cron delay)
-    # 08:30 UTC Mon-Fri = 4:30 PM Manila + ~30min delay = ~5:00 PM
+    # Clock Out: ~5:00 PM Manila (4:30 PM + GitHub delay)
     - cron: '30 8 * * 1-5'
+  repository_dispatch:
+    types: [clockin, clockout]
   workflow_dispatch:
     inputs:
       action:
@@ -42,6 +42,8 @@ jobs:
         run: |
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             echo "action=${{ inputs.action }}" >> $GITHUB_OUTPUT
+          elif [ "${{ github.event_name }}" = "repository_dispatch" ]; then
+            echo "action=${{ github.event.action }}" >> $GITHUB_OUTPUT
           elif [ "${{ github.event.schedule }}" = "30 23 * * 0-4" ]; then
             echo "action=clockin" >> $GITHUB_OUTPUT
           else
