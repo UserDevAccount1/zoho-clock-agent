@@ -2,10 +2,14 @@ name: Zoho Clock In/Out
 
 on:
   schedule:
-    # Clock In: ~8:00 AM Manila (7:30 AM + GitHub delay)
-    - cron: '30 23 * * 0-4'
-    # Clock Out: ~5:00 PM Manila (4:30 PM + GitHub delay)
-    - cron: '30 8 * * 1-5'
+    # Run every hour from 11PM-10AM UTC (7AM-6PM Manila) on weekdays
+    # This gives multiple chances to fire — if one is missed, the next catches it
+    - cron: '0 23 * * 0-4'   # 7AM Manila (Mon-Fri)
+    - cron: '0 0 * * 1-5'    # 8AM Manila
+    - cron: '0 1 * * 1-5'    # 9AM Manila
+    - cron: '0 8 * * 1-5'    # 4PM Manila
+    - cron: '0 9 * * 1-5'    # 5PM Manila
+    - cron: '0 10 * * 1-5'   # 6PM Manila
   repository_dispatch:
     types: [clockin, clockout]
   workflow_dispatch:
@@ -44,13 +48,26 @@ jobs:
             echo "action=${{ inputs.action }}" >> $GITHUB_OUTPUT
           elif [ "${{ github.event_name }}" = "repository_dispatch" ]; then
             echo "action=${{ github.event.action }}" >> $GITHUB_OUTPUT
-          elif [ "${{ github.event.schedule }}" = "30 23 * * 0-4" ]; then
-            echo "action=clockin" >> $GITHUB_OUTPUT
           else
-            echo "action=clockout" >> $GITHUB_OUTPUT
+            # Auto-detect: use Manila time to decide clock-in vs clock-out
+            MANILA_HOUR=$(TZ=Asia/Manila date +%H)
+            echo "Manila hour: $MANILA_HOUR"
+            if [ "$MANILA_HOUR" -ge 7 ] && [ "$MANILA_HOUR" -lt 12 ]; then
+              echo "action=clockin" >> $GITHUB_OUTPUT
+            elif [ "$MANILA_HOUR" -ge 16 ] && [ "$MANILA_HOUR" -le 18 ]; then
+              echo "action=clockout" >> $GITHUB_OUTPUT
+            else
+              echo "action=skip" >> $GITHUB_OUTPUT
+              echo "Outside clock-in/out window (Manila hour: $MANILA_HOUR)"
+            fi
           fi
 
+      - name: Skip — outside schedule window
+        if: steps.action.outputs.action == 'skip'
+        run: echo "Not clock-in or clock-out time. Skipping."
+
       - name: Run Zoho ${{ steps.action.outputs.action }} (attempt 1)
+        if: steps.action.outputs.action != 'skip'
         id: attempt1
         continue-on-error: true
         env:
@@ -60,11 +77,11 @@ jobs:
         run: node .github/scripts/clock-action.js ${{ steps.action.outputs.action }}
 
       - name: Wait before retry
-        if: steps.attempt1.outcome == 'failure'
+        if: steps.action.outputs.action != 'skip' && steps.attempt1.outcome == 'failure'
         run: echo "Attempt 1 failed, waiting 30s before retry..." && sleep 30
 
       - name: Run Zoho ${{ steps.action.outputs.action }} (retry)
-        if: steps.attempt1.outcome == 'failure'
+        if: steps.action.outputs.action != 'skip' && steps.attempt1.outcome == 'failure'
         env:
           ZOHO_EMAIL: ${{ secrets.ZOHO_EMAIL }}
           ZOHO_PASSWORD: ${{ secrets.ZOHO_PASSWORD }}
@@ -72,7 +89,7 @@ jobs:
         run: node .github/scripts/clock-action.js ${{ steps.action.outputs.action }}
 
       - name: Upload screenshot
-        if: always()
+        if: always() && steps.action.outputs.action != 'skip'
         uses: actions/upload-artifact@v4
         with:
           name: screenshot-${{ steps.action.outputs.action }}-${{ github.run_id }}
